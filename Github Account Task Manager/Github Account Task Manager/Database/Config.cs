@@ -15,8 +15,8 @@ namespace Github_Account_Task_Manager.Database
         public Config(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<Models.User>().Wait();
-            _database.CreateTableAsync<Models.Task>().Wait();
+            _database.CreateTableAsync<User>().Wait();
+            _database.CreateTableAsync<Task>().Wait();
         }
 
         public static SQLiteAsyncConnection GetDatabaseConnection()

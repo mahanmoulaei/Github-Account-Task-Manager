@@ -7,16 +7,16 @@ namespace Github_Account_Task_Manager.Database
 {
     internal class Login
     {
-        static public async Task<bool> Validate(string email, string password)
+        public static async Task<bool> Validate(string username, string password)
         {
-            if (!String.IsNullOrEmpty(email))
+            if (!String.IsNullOrEmpty(username))
             {
                 if (!String.IsNullOrEmpty(password))
                 {
                     try
                     {
-                        //TODO
-                        await App.Current.MainPage.DisplayAlert("Alert", "Login for " + email + " was successful!", "OK");
+                        await LoginUserAsync(username, password);
+                        await App.Current.MainPage.DisplayAlert("Alert", "Login for " + username + " was successful!", "OK");
                         return true;
                     }
                     catch (Exception ex)
@@ -38,5 +38,17 @@ namespace Github_Account_Task_Manager.Database
                 return false;
             }
         }
-    }
+
+        private static async Task<bool> LoginUserAsync(string username, string password)
+        {
+            foreach (Models.User user in await Functions.GetUsersAsync())
+            {
+                if (user.Username == username && user.Password == password)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    } 
 }

@@ -1,12 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Github_Account_Task_Manager.Views.LoginPage">
+             x:Class="Github_Account_Task_Manager.Views.LoginPage"
+             Title="Login Page"
+             >
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0" Source="login.jpg" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+            <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand" >
+                <Frame Margin="5" BorderColor="Black" CornerRadius="15">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="email.png" HeightRequest="30" WidthRequest="30"/>
+                        <Entry x:Name="txtUsername" Placeholder="Username..." HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </Frame>
+
+
+                <Frame Margin="5" BorderColor="Black" CornerRadius="15">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="password.png" HeightRequest="30" WidthRequest="30"/>
+                        <Entry x:Name="txtPassword" Placeholder="Password..." HorizontalOptions="FillAndExpand" IsPassword="True"/>
+                    </StackLayout>
+                </Frame>
+                
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" VerticalOptions="CenterAndExpand">
+                <Button x:Name="btnLogin" Clicked="btnLogin_Clicked" Text="Login" BackgroundColor="GreenYellow" TextColor="Black" FontSize="20" CornerRadius="10" Margin="40, 5, 40, 5"/>
+                <Button x:Name="btnSignup" Clicked="btnSignup_Clicked" Text="SignUp" TextColor="OrangeRed" BackgroundColor="Transparent" FontSize="18"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

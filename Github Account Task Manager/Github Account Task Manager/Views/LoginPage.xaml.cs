@@ -16,5 +16,21 @@ namespace Github_Account_Task_Manager.Views
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnSignup_Clicked(object sender, EventArgs e)
+        {
+            ClearFields();
+            await Navigation.PushAsync(new SignupPage());
+        }
+
+        private void ClearFields()
+        {
+            txtUsername.Text = txtPassword.Text = "";
+        }
     }
 }

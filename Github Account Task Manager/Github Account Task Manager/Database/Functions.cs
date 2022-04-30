@@ -7,9 +7,14 @@ namespace Github_Account_Task_Manager.Database
 {
     internal class Functions
     {
-        public Task<List<Models.User>> GetUsersAsync()
+        public static async Task<List<Models.User>> GetUsersAsync()
         {
-            return Config.GetDatabaseConnection().Table<Models.User>().ToListAsync();
+            return await Config.GetDatabaseConnection().Table<Models.User>().ToListAsync();
+        }
+
+        public static async Task<List<Models.Task>> GetTasksAsync()
+        {
+            return await Config.GetDatabaseConnection().Table<Models.Task>().ToListAsync();
         }
     }
 }

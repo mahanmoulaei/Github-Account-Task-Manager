@@ -1,12 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Github_Account_Task_Manager.Views.SignupPage">
+             x:Class="Github_Account_Task_Manager.Views.SignupPage"
+             NavigationPage.HasNavigationBar="False"
+             >
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="White" Padding="10" Spacing="30">
+            
+            <Image x:Name="imgAvatar" Source="profile.jpg" HeightRequest="200" WidthRequest="200"/>
+
+            <StackLayout Orientation="Horizontal">
+                <Image Source="email.png" HeightRequest="30" WidthRequest="30"/>
+                <Entry x:Name="txtUsername" Placeholder="Username..." HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextChanged="txtUsername_TextChanged"/>
+            </StackLayout>
+            
+            <Entry x:Name="txtPassword" Placeholder="Password..." />
+            
+            <Entry x:Name="txtPasswordRep" Placeholder="Repeat Password..."/>
+
+            <Button x:Name="btnSearch" Text="Search" BackgroundColor="CadetBlue" CornerRadius="10" Clicked="btnSearch_Clicked"/>
+
+            <Button x:Name="btnCreate" Text="Create" BackgroundColor="GreenYellow" CornerRadius="10" Clicked="btnCreate_Clicked"/>
+            
+            <Button x:Name="btnCancel" Text="Cancel" BackgroundColor="OrangeRed" CornerRadius="10" Clicked="btnCancel_Clicked"/>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

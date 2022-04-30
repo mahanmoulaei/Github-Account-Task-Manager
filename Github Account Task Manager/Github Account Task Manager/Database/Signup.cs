@@ -8,7 +8,7 @@ namespace Github_Account_Task_Manager.Database
     internal class Signup
     {
 
-        static public async Task<bool> Validate(string username, string password)
+        public static async Task<bool> Validate(string username, string password)
         {
             if (!String.IsNullOrEmpty(username))
             {
@@ -16,13 +16,7 @@ namespace Github_Account_Task_Manager.Database
                 {
                     try
                     {
-                        await SaveUserAsync(
-                            new Models.User
-                            {
-                                Username = username,
-                                Password = password
-                            }
-                        );
+                        await SaveUserAsync(username, password);
                         await App.Current.MainPage.DisplayAlert("Alert", "User " + username + " Created!", "OK");
                         return true;
                     }
@@ -46,9 +40,17 @@ namespace Github_Account_Task_Manager.Database
             }
         }
 
-        private static Task<int> SaveUserAsync(Models.User user)
+        private static async Task<bool> SaveUserAsync(string username, string password)
         {
-            return Config.GetDatabaseConnection().InsertAsync(user);
+            foreach (Models.User user in await Functions.GetUsersAsync())
+            {
+                if (user.Username == username)
+                {
+                    return false;
+                }
+            }
+            await Config.GetDatabaseConnection().InsertAsync(new Models.User() { Username = username, Password = password });
+            return true;
         }
     }
 }
