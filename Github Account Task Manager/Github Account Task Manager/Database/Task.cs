@@ -74,5 +74,73 @@ namespace Github_Account_Task_Manager.Database
             await Config.GetDatabaseConnection().InsertAsync(new Models.Task() { ID = id, Description = desciption, Assigned = assigned, Deadline = deadline });
             return true;
         }
+
+        public static async Task<bool> Delete(Models.Task task)
+        {
+            try
+            {
+                if (await DeleteTaskAsync(task))
+                {
+                    await App.Current.MainPage.DisplayAlert("Alert", "Task with the ID of \"" + task.ID + "\" deleted successfully!", "OK");
+                    return true;
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Alert", "Error happenned at deleting the task with the ID of \"" + task.ID + "\"!", "OK");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Alert", ex.Message.ToString(), "Ok");
+                return false;
+            }
+        }
+
+        private static async Task<bool> DeleteTaskAsync(Models.Task task)
+        {
+            if (await Config.GetDatabaseConnection().DeleteAsync(task) >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }         
+        }
+
+        public static async Task<bool> Edit(Models.Task task)
+        {
+            try
+            {
+                if (await EditTaskAsync(task))
+                {
+                    await App.Current.MainPage.DisplayAlert("Alert", "Task with the ID of \"" + task.ID + "\" edited successfully!", "OK");
+                    return true;
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Alert", "Error happenned at editing the task with the ID of \"" + task.ID + "\"!", "OK");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Alert", ex.Message.ToString(), "Ok");
+                return false;
+            }
+        }
+
+        private static async Task<bool> EditTaskAsync(Models.Task task)
+        {
+            if (await Config.GetDatabaseConnection().UpdateAsync(task) >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

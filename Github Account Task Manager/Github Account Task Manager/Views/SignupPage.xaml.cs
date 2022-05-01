@@ -58,7 +58,7 @@ namespace Github_Account_Task_Manager.Views
                         {
                             if (await Database.Signup.Validate(txtUsername.Text, txtPassword.Text))
                             {
-                                GoBackToPreviousPageAsync();
+                                GoBackToPreviousPage();
                             }                        
                         }
                         else
@@ -84,10 +84,10 @@ namespace Github_Account_Task_Manager.Views
 
         private void btnCancel_Clicked(object sender, EventArgs e)
         {
-            GoBackToPreviousPageAsync();
+            GoBackToPreviousPage();
         }
 
-        private async void GoBackToPreviousPageAsync()
+        private async void GoBackToPreviousPage()
         {
             MakeFieldsEnabled(false);
             await Navigation.PopAsync();

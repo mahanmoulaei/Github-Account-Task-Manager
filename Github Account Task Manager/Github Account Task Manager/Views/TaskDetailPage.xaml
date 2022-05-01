@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Github_Account_Task_Manager.Views.TaskDetailPage"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Spacing="20" Padding="10,0,10,0">
+
+            <Frame CornerRadius="10">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="ID:" VerticalOptions="CenterAndExpand" FontSize="Medium" FontAttributes="Bold"/>
+                        <Entry Placeholder="Task ID..." x:Name="txtTaskID" Text="{Binding ID}" IsEnabled="False" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Entry Placeholder="Task Description..." x:Name="txtDescription" Text="{Binding Description}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <DatePicker x:Name="datePickerDate"/>
+                        <Picker HorizontalOptions="FillAndExpand" x:Name="pickerUser" ItemDisplayBinding="{Binding Username}"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Edit Task" BackgroundColor="GreenYellow" CornerRadius="20" x:Name="btnEdit" Clicked="btnEdit_Clicked" FontAttributes="Bold" FontSize="Subtitle" Margin="0, 10, 0, 10"/>
+            <Button Text="Delete Task" BackgroundColor="Red" CornerRadius="20" x:Name="btnDelete" Clicked="btnDelete_Clicked" FontAttributes="Bold" FontSize="Subtitle" Margin="0, 10, 0, 10"/>
+            <Button Text="Cancel" BackgroundColor="Transparent" CornerRadius="20" x:Name="btnCancel" Clicked="btnCancel_Clicked" FontAttributes="Bold" FontSize="Subtitle" TextColor="OrangeRed" Margin="0, 10, 0, 10"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

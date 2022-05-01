@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Github_Account_Task_Manager.Models
 {
-    internal class Task
+    public class Task
     {
         [PrimaryKey]
         public string ID { get; set; }
