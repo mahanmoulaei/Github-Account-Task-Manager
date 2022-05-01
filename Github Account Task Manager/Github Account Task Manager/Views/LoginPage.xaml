@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Github_Account_Task_Manager.Views.LoginPage"
-             Title="Login Page"
+             NavigationPage.HasNavigationBar="False"
              >
     <ContentPage.Content>
         <Grid>

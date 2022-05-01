@@ -15,13 +15,19 @@ namespace Github_Account_Task_Manager.Database
                 {
                     try
                     {
-                        await LoginUserAsync(username, password);
-                        await App.Current.MainPage.DisplayAlert("Alert", "Login for " + username + " was successful!", "OK");
-                        return true;
+                        if (await LoginUserAsync(username, password))
+                        {
+                            await App.Current.MainPage.DisplayAlert("Alert", "Login for " + username + " was successful!", "OK");
+                            return true;
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Alert", "No such username(" + username + ") was found in the database!", "OK");
+                            return false;
+                        }                      
                     }
                     catch (Exception ex)
                     {
-                        //TODO
                         await App.Current.MainPage.DisplayAlert("Alert", ex.Message.ToString(), "OK");
                         return false;
                     }

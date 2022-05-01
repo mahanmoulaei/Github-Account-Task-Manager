@@ -17,20 +17,42 @@ namespace Github_Account_Task_Manager.Views
             InitializeComponent();
         }
 
-        private void btnLogin_Clicked(object sender, EventArgs e)
+        private async void btnLogin_Clicked(object sender, EventArgs e)
         {
-
+            if (!String.IsNullOrEmpty(txtUsername.Text))
+            {
+                if (!String.IsNullOrEmpty(txtPassword.Text))
+                {
+                    if (await Database.Login.Validate(txtUsername.Text, txtPassword.Text))
+                    {
+                        LoadPage(new MainPage());
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Alert", "Password field cannot be empty!", "Ok");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Alert", "Username field cannot be empty!", "Ok");
+            }
         }
 
-        private async void btnSignup_Clicked(object sender, EventArgs e)
+        private void btnSignup_Clicked(object sender, EventArgs e)
         {
-            ClearFields();
-            await Navigation.PushAsync(new SignupPage());
+            LoadPage(new SignupPage());
         }
 
         private void ClearFields()
         {
             txtUsername.Text = txtPassword.Text = "";
+        }
+
+        private async void LoadPage(Page page)
+        {
+            ClearFields();
+            await Navigation.PushAsync(page);
         }
     }
 }

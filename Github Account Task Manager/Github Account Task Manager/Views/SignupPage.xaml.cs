@@ -21,6 +21,7 @@ namespace Github_Account_Task_Manager.Views
             MakeFieldsEnabled(false);
         }
 
+        override
         protected void OnAppearing()
         {
             MakeFieldsEnabled(false);
@@ -43,7 +44,6 @@ namespace Github_Account_Task_Manager.Views
             {
                 await DisplayAlert("Alert", "Username field cannot be empty!", "Ok");
             }
-            
         }
 
         private async void btnCreate_Clicked(object sender, EventArgs e)
@@ -56,8 +56,10 @@ namespace Github_Account_Task_Manager.Views
                     {
                         if (txtPassword.Text == txtPasswordRep.Text)
                         {
-                            await Database.Signup.Validate(txtUsername.Text, txtPassword.Text);
-                            GoBackToPreviousPageAsync();
+                            if (await Database.Signup.Validate(txtUsername.Text, txtPassword.Text))
+                            {
+                                GoBackToPreviousPageAsync();
+                            }                        
                         }
                         else
                         {
@@ -122,6 +124,7 @@ namespace Github_Account_Task_Manager.Views
         {
             IsPasswordEntryEnabled(state);
             IsButtonCreateEnabled(state);
+            IsButtonSearchEnabled(!state);
         }
 
         private void IsPasswordEntryEnabled(bool state)
@@ -135,6 +138,10 @@ namespace Github_Account_Task_Manager.Views
         {
             btnCreate.IsEnabled = state;
         }
-        
+
+        private void IsButtonSearchEnabled(bool state)
+        {
+            btnSearch.IsEnabled = state;
+        }
     }
 }

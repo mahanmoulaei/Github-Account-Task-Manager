@@ -16,13 +16,19 @@ namespace Github_Account_Task_Manager.Database
                 {
                     try
                     {
-                        await SaveUserAsync(username, password);
-                        await App.Current.MainPage.DisplayAlert("Alert", "User " + username + " Created!", "OK");
-                        return true;
+                        if (await SaveUserAsync(username, password))
+                        {
+                            await App.Current.MainPage.DisplayAlert("Alert", "User " + username + " Created!", "OK");
+                            return true;
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Alert", "Such username (" + username + ") already exists in the database!", "OK");
+                            return false;
+                        }                      
                     }
                     catch (Exception ex)
                     {
-                        //TODO
                         await App.Current.MainPage.DisplayAlert("Alert", ex.Message.ToString(), "Ok");
                         return false;
                     }

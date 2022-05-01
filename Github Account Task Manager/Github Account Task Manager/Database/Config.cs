@@ -10,11 +10,11 @@ namespace Github_Account_Task_Manager.Database
     internal class Config
     {
         public static string DatabaseFilename = "MyApplication.db3";
-        private static SQLiteAsyncConnection _database;
+        public static readonly SQLiteAsyncConnection _database;
         
-        public Config(string dbPath)
+        static Config()
         {
-            _database = new SQLiteAsyncConnection(dbPath);
+            _database = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFilename));
             _database.CreateTableAsync<User>().Wait();
             _database.CreateTableAsync<Task>().Wait();
         }
@@ -24,14 +24,15 @@ namespace Github_Account_Task_Manager.Database
             return _database;
         }
 
-        private static Config database;
+        static Config database;
         internal static Config Database
         {
             get
             {
                 if (database == null)
                 {
-                    database = new Config(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFilename));
+                    //string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFilename);
+                    database = new Config();
                 }
                 return database;
             }
