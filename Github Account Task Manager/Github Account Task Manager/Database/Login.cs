@@ -7,6 +7,7 @@ namespace Github_Account_Task_Manager.Database
 {
     internal class Login
     {
+        private static bool passwordDoesntMatch = false;
         public static async Task<bool> Validate(string username, string password)
         {
             if (!String.IsNullOrEmpty(username))
@@ -22,8 +23,18 @@ namespace Github_Account_Task_Manager.Database
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert("Alert", "No such username(" + username + ") was found in the database!", "OK");
-                            return false;
+                            if (passwordDoesntMatch)
+                            {
+                                await App.Current.MainPage.DisplayAlert("Alert", "Entered password for username(" + username + ") was wrong!", "OK");
+                                passwordDoesntMatch = false;
+                                return false;
+                            }
+                            else
+                            {
+                                await App.Current.MainPage.DisplayAlert("Alert", "No such username(" + username + ") was found in the database!", "OK");
+                                return false;
+                            }
+                            
                         }                      
                     }
                     catch (Exception ex)
@@ -49,9 +60,18 @@ namespace Github_Account_Task_Manager.Database
         {
             foreach (Models.User user in await Functions.GetUsersAsync())
             {
-                if (user.Username == username && user.Password == password)
+                if (user.Username == username)
                 {
-                    return true;
+                    if (user.Password == password)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        passwordDoesntMatch = true;
+                        return false;
+                    }
+                    
                 }
             }
             return false;
