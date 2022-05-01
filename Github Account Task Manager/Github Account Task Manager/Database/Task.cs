@@ -27,6 +27,7 @@ namespace Github_Account_Task_Manager.Database
                                 }
                                 else
                                 {
+                                    await App.Current.MainPage.DisplayAlert("Alert", "Task with the ID of \"" + id + "\" already exists!", "OK");
                                     return false;
                                 }
                             }

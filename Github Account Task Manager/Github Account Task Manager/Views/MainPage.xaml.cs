@@ -25,7 +25,7 @@ namespace Github_Account_Task_Manager.Views
             pickerUser.ItemsSource = await Database.Functions.GetUsersAsync();
             pickerUser.SelectedIndex = 0;
 
-            listTasks.ItemsSource = await Database.Functions.GetTasksAsync();
+            await RefreshTaskListAsync();
         }
 
         private void listTasks_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -33,9 +33,13 @@ namespace Github_Account_Task_Manager.Views
 
         }
 
-        private void btnAddTask_Clicked(object sender, EventArgs e)
+        private async void btnAddTask_Clicked(object sender, EventArgs e)
         {
-
+            if (await Database.Task.Add(txtTaskID.Text, txtDescription.Text, pickerUser.SelectedItem.ToString(), datePickerDate.Date))
+            {
+                ResetFields();
+                await RefreshTaskListAsync();
+            }
         }
 
         private async void btnLogout_Clicked(object sender, EventArgs e)
@@ -44,6 +48,19 @@ namespace Github_Account_Task_Manager.Views
             {
                 await Navigation.PopAsync();
             }          
+        }
+
+        private async Task RefreshTaskListAsync()
+        {
+            listTasks.ItemsSource = null;
+            listTasks.ItemsSource = await Database.Functions.GetTasksAsync();
+        }
+
+        private void ResetFields()
+        {
+            txtTaskID.Text = txtDescription.Text = "";
+            pickerUser.SelectedIndex = 0;
+            datePickerDate.Date = DateTime.Now;
         }
     }
 }
